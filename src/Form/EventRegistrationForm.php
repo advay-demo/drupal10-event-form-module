@@ -199,56 +199,54 @@ class EventRegistrationForm extends FormBase {
     }
   }
 
-  // ---------- SUBMIT ----------
+// ---------- SUBMIT ----------
 
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    Database::getConnection()->insert('event_registration_entry')
-      ->fields([
-        'event_id' => $form_state->getValue('event_id'),
-        'full_name' => $form_state->getValue('full_name'),
-        'email' => $form_state->getValue('email'),
-        'college' => $form_state->getValue('college'),
-        'department' => $form_state->getValue('department'),
-        'created' => time(),
-      ])
-      ->execute();
-
-    // ---- Mail sending ----
-    $mailManager = \Drupal::service('plugin.manager.mail');
-    $langcode = \Drupal::currentUser()->getPreferredLangcode();
-
-    $params = [
-      'name' => $form_state->getValue('full_name'),
+  Database::getConnection()->insert('event_registration_entry')
+    ->fields([
+      'event_id' => $form_state->getValue('event_id'),
+      'full_name' => $form_state->getValue('full_name'),
       'email' => $form_state->getValue('email'),
-      'event_name' => $this->getEventName($form_state->getValue('event_id')),
-      'event_date' => date('Y-m-d'),
-      'category' => $form_state->getValue('category'),
-    ];
+      'college' => $form_state->getValue('college'),
+      'department' => $form_state->getValue('department'),
+      'created' => time(),
+    ])
+    ->execute();
 
-    // user mail
+  // ---- Mail sending ----
+  $params = [
+    'name' => $form_state->getValue('full_name'),
+    'event_name' => $this->getEventName($form_state->getValue('event_id')),
+    'event_date' => date('Y-m-d'),
+    'category' => $form_state->getValue('category'),
+  ];
+
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+
+  // send to user
+  $mailManager->mail(
+    'event_registration',
+    'registration_mail',
+    $form_state->getValue('email'),
+    $langcode,
+    $params
+  );
+
+  // send to admin if enabled
+  $config = \Drupal::config('event_registration.settings');
+
+  if ($config->get('admin_notify') && $config->get('admin_email')) {
     $mailManager->mail(
       'event_registration',
-      'registration_user',
-      $form_state->getValue('email'),
+      'registration_mail',
+      $config->get('admin_email'),
       $langcode,
       $params
     );
-
-    // admin mail (config driven)
-    $config = \Drupal::config('event_registration.settings');
-
-    if ($config->get('admin_notify') && $config->get('admin_email')) {
-      $mailManager->mail(
-        'event_registration',
-        'registration_admin',
-        $config->get('admin_email'),
-        $langcode,
-        $params
-      );
-    }
-
-    $this->messenger()->addStatus('Registration successful.');
   }
 
+  $this->messenger()->addStatus('Registration successful.');
+}
 }
