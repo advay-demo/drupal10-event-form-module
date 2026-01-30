@@ -45,6 +45,33 @@ CSV Export:
 
 ---
 
+## Screenshots
+
+### Module Enabled
+<img width="1901" height="962" alt="image" src="https://github.com/user-attachments/assets/21941f75-77ca-41d0-942e-eb2b421d6ab9" />
+
+### Event Configuration Form
+<img width="1383" height="958" alt="image" src="https://github.com/user-attachments/assets/271fb19f-1e68-4864-916a-d86f15ae962c" />
+
+
+### Registration Form
+<img width="1448" height="967" alt="image" src="https://github.com/user-attachments/assets/d76baeb1-80b3-4839-82ef-96bb5cad0807" />
+<img width="1295" height="686" alt="image" src="https://github.com/user-attachments/assets/4c2e9fd9-9a75-49ed-9db0-c469bc5584be" />
+
+
+### AJAX Date → Various Filtering
+<img width="447" height="397" alt="image" src="https://github.com/user-attachments/assets/f404df45-7c59-44d0-a19e-6f80d571eafb" />
+
+### Admin Dashboard
+<img width="1915" height="832" alt="image" src="https://github.com/user-attachments/assets/d90eb471-fa69-42cc-80d0-2100221865ff" />
+
+
+### CSV Export
+<img width="993" height="217" alt="image" src="https://github.com/user-attachments/assets/226471ab-e735-44eb-bd26-7c10ef17fe25" />
+
+
+---
+
 ## Database Tables
 
 ### event_registration_event
@@ -113,6 +140,8 @@ Controls admin dashboard access.
 
 ---
 
+
+
 ## Technical Standards
 
 - Drupal 10.x
@@ -122,3 +151,5 @@ Controls admin dashboard access.
 - PSR-4
 - No contrib modules
 - Drupal coding standards followed
+
+
