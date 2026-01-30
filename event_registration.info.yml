@@ -1,0 +1,7 @@
+name: Event Registration
+type: module
+description: Custom module for event configuration and user registrations with email notifications.
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:system

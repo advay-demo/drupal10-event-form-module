@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Implements hook_mail().
+ */
+function event_registration_mail($key, &$message, $params) {
+
+  switch ($key) {
+
+    case 'registration_user':
+      $message['subject'] = 'Event Registration Confirmation';
+
+      $message['body'][] =
+        "Hello {$params['name']},\n\n" .
+        "You are successfully registered.\n\n" .
+        "Event: {$params['event_name']}\n" .
+        "Date: {$params['event_date']}\n" .
+        "Category: {$params['category']}\n\n" .
+        "Thank you.";
+
+    break;
+
+
+    case 'registration_admin':
+      $message['subject'] = 'New Event Registration';
+
+      $message['body'][] =
+        "New registration received:\n\n" .
+        "Name: {$params['name']}\n" .
+        "Email: {$params['email']}\n" .
+        "Event: {$params['event_name']}\n" .
+        "Date: {$params['event_date']}\n" .
+        "Category: {$params['category']}";
+    break;
+
+  }
+}

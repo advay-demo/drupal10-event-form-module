@@ -1,0 +1,9 @@
+{
+  "name": "custom/event-registration",
+  "type": "drupal-module",
+  "autoload": {
+    "psr-4": {
+      "Drupal\\event_registration\\": "src/"
+    }
+  }
+}
